@@ -10,8 +10,30 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage',function($scope, 
   init();
 
   function init() {
+    auth();
     $scope.$storage = $localStorage;
     loadVersions()
+  }
+
+  function auth() {
+    const authResult = JSON.parse(localStorage.authResult || '{}');
+    const token = authResult.id_token;
+    if (!token && !isLoggedIn(token)) {
+      chrome.runtime.sendMessage({
+        type: "authenticate"
+      });
+    }
+  }
+
+  function isLoggedIn(token) {
+    // The user is logged in if their token isn't expired
+    return jwt_decode(token).exp > Date.now() / 1000;
+  }
+
+  function logout() {
+    // Remove the idToken from storage
+    localStorage.clear();
+    auth();
   }
 
   function updateVersion(id) {
@@ -41,14 +63,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage',function($scope, 
       var type = res.data.response.search.result.type;
       switch(type) {
         case 'verses':
-          vm.searchResults = res.data.response.search.result.verses;
-          break;
+        vm.searchResults = res.data.response.search.result.verses;
+        break;
         case 'passages':
-          vm.searchResults = res.data.response.search.result.passages;
-          break;
+        vm.searchResults = res.data.response.search.result.passages;
+        break;
         default:
-          vm.searchResults = undefined;
-          break;
+        vm.searchResults = undefined;
+        break;
       };
       vm.type = type;
       vm.searching = false;

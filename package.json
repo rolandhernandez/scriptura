@@ -42,5 +42,9 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "angular-auth0": "^3.0.0",
+    "auth0-js": "^9.1.3"
   }
 }
