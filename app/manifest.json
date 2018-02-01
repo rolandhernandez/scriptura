@@ -10,6 +10,8 @@
   "background": {
     "scripts": [
       "scripts/chromereload.js",
+      "scripts/config.production.js",
+      "assets/auth/auth0chrome.min.js",
       "scripts/background.js"
     ]
   },
@@ -34,7 +36,8 @@
     "storage",
     "webNavigation",
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "identity"
   ],
   "browser_action": {
     "default_icon": {
@@ -46,5 +49,5 @@
   "web_accessible_resources": [
     "assets/icon.png"
   ],
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com https://a.optmstr.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'"
 }
