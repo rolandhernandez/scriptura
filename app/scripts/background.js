@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(function (event) {
       localStorage.authResult = JSON.stringify(authResult);
       chrome.notifications.create({
         type: 'basic',
-        iconUrl: 'assets/icon.png',
+        iconUrl: '../assets/icon.png',
         title: 'Login Successful',
         message: 'You can use the app now'
       });
