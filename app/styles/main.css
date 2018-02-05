@@ -26,7 +26,7 @@ body {
   padding: 10px 0;
 }
 
-li {
+.m-widget4__item {
   cursor: pointer;
 }
 

@@ -6,6 +6,9 @@ app.controller('PassageCtrl', ['$scope', '$http', '$localStorage', '$stateParams
   init();
 
   function init() {
+    console.log($stateParams)
+    vm.verse = $stateParams.verse;
+    vm.ref = $stateParams.reference;
     loadPassage();
   }
 
