@@ -53,6 +53,15 @@
                       </div>
                     </div>
                   </div>
+                  <div class="m-portlet__foot" ng-if="ctrl.ref === ctrl.verse.reference">
+										<div class="row align-items-center">
+											<div class="col-lg-6 m--align-center">
+                        <button type="button" class="btn btn-brand" ui-sref="passage({ reference: ctrl.verse.parent.chapter.name })">
+													<i class="fa fa-book"></i> Read {{ctrl.verse.parent.chapter.name}}
+												</button>
+											</div>
+										</div>
+									</div>
                 </div>
               </div>
             </div>

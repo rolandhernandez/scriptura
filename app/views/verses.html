@@ -41,16 +41,20 @@
                     </div>
                     <div class="row" ng-if="ctrl.verses">
                       <div class="col-sm-12">
-                        <ul class="list-group">
-                          <li class="list-group-item book" ng-repeat="verse in ctrl.verses" ui-sref="passage({ reference: verse.reference })">
-                            <div class="row">
-                              <div class="col-sm-12 text-left">
-                                <b>{{'Verse ' + verse.verse}}</b>
-                                <i class="fa fa-angle-right pull-right" aria-hidden="true"></i>
-                              </div>
+                        <div class="m-widget4">
+                          <div class="m-widget4__item" ng-repeat="verse in ctrl.verses" ui-sref="passage({ reference: verse.reference, verse: verse })">
+                            <div class="m-widget4__info">
+                              <span class="m-widget4__text">
+                                {{'Verse ' + verse.verse}}
+                              </span>
                             </div>
-                          </li>
-                        </ul>
+                            <div class="m-widget4__ext">
+                              <a href="#" class="m-widget4__icon">
+                                <i class="fa fa-angle-right pull-right"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

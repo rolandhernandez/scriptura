@@ -27,6 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('passage', {
     url: '/passage/:reference',
+    params: { verse: null },
     templateUrl: 'views/passages.html',
     controller: 'PassageCtrl',
     controllerAs: 'ctrl'
