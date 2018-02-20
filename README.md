@@ -1,3 +1,5 @@
+[![Auth0](http://cdn.auth0.com/oss/badges/a0-badge-dark.png)](https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss)
+
 # Scriptura
 
 Scriptura is a free bible app for the Chrome Browser that allows users to easy access scripture.
