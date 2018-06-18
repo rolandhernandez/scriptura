@@ -6,7 +6,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   vm.type = ''; // init search result doctype
   vm.search = search; // set search isFunction
   vm.updateVersion = updateVersion //set function for updating version
+  vm.loadChapters = loadChapters;
+  vm.book = true;
   vm.books = [];
+  vm.setBookStep = setBookStep;
 
   init();
 
@@ -78,6 +81,28 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
     .then(function (res) {
       console.log('Book Response:', res);
       vm.books = res.data.response.books;
+      vm.loading = false;
+    });
+  }
+
+  function setBookStep() {
+    vm.book = true;
+    vm.chapter = false;
+  }
+
+  function loadChapters(id) {
+    vm.book = false;
+    vm.chapter = true;
+    console.log('book id', id);
+    console.log('step', vm.step);
+    vm.loading = true;
+    var query = vm.query;
+    var url = 'https://bibles.org/v2/books/' + id + '/chapters.js';
+    console.log(url);
+    $http.get(url)
+    .then(function (res) {
+      console.log('Chapter Response:', res);
+      vm.chapters = res.data.response.chapters;
       vm.loading = false;
     });
   }

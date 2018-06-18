@@ -148,10 +148,10 @@
       <div class="m-portlet__head">
         <ul class="nav nav-pills nav-fill" role="tablist" style="margin-top:15px;">
           <li class="nav-item">
-            <a class="nav-link active show" data-toggle="tab" href="#m_tabs_5_1">Book</a>
+            <a class="nav-link" ng-class="{ 'active': ctrl.book && !ctrl.chapter }" data-toggle="tab" ng-click="ctrl.setBookStep();" href="#m_tabs_5_1">Book</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_5_2">Verse</a>
+            <a class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" href="#m_tabs_5_2">{{ctrl.bookName || 'Verse'}}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_5_3">Passage</a>
@@ -159,30 +159,50 @@
         </ul>
       </div>
       <div class="tab-content">
-        <div class="tab-pane active show" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
+        <div class="tab-pane" ng-class="{ 'active': ctrl.book }" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
+          <div class="row" ng-if="ctrl.loading">
+            <div class="col-sm-12 text-center spinner">
+              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
           <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
-            <div class="m-widget1__item" ng-repeat="book in ctrl.books" ui-sref="chapters({bookId: book.id})">
+            <div class="m-widget1__item" ng-repeat="book in ctrl.books">
               <div class="row m-row--no-padding align-items-center">
                 <div class="col btn hvr-grow-rotate">
-                  <h3 class="m-widget1__title text-center">{{book.name}}</h3>
+                  <h3 class="m-widget1__title text-center" ng-click="ctrl.bookName = book.name; ctrl.loadChapters(book.id);" href="#m_tabs_5_2">{{book.name}}</h3>
                 </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="tab-pane" ng-class="{ 'active': ctrl.chapter }" id="m_tabs_5_2" role="tabpanel">
+          <div class="row" ng-if="ctrl.loading">
+            <div class="col-sm-12 text-center spinner">
+              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
+            <div class="m-widget1__item" ng-repeat="chapter in ctrl.chapters | filter: { chapter: '!int'}">
+              <div class="row m-row--no-padding align-items-center">
+                <div class="col btn hvr-grow-rotate">
+                  <h3 class="m-widget1__title text-center">{{'Chapter ' + chapter.chapter}}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="m_tabs_5_3" role="tabpanel">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+        </div>
+        <div class="tab-pane" id="m_tabs_5_4" role="tabpanel">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
         </div>
       </div>
     </div>
-    <div class="tab-pane" id="m_tabs_5_2" role="tabpanel">
-
-    </div>
-    <div class="tab-pane" id="m_tabs_5_3" role="tabpanel">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
-    </div>
-    <div class="tab-pane" id="m_tabs_5_4" role="tabpanel">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-    </div>
+    <div class="m--space-30"></div>
   </div>
-</div>
-<div class="m--space-30"></div>
-</div>
 </div>
 <!--end:: Widgets/Quick Stats-->
 <!--End::Section-->
