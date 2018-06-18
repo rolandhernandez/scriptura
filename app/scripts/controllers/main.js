@@ -7,6 +7,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   vm.search = search; // set search isFunction
   vm.updateVersion = updateVersion //set function for updating version
   vm.loadChapters = loadChapters;
+  vm.loadPassage = loadPassage;
   vm.book = true;
   vm.books = [];
   vm.setBookStep = setBookStep;
@@ -27,6 +28,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
       axis: 'y',
       mouseWheel:{ enable: true },
       setHeight: 300,
+      scrollInertia: 400
+    };
+
+    vm.passageScrollbar = {
+      autoHideScrollbar: true,
+      theme: 'light',
+      advanced:{
+        updateOnContentResize: true
+      },
+      axis: 'y',
+      mouseWheel:{ enable: true },
+      setHeight: 800,
       scrollInertia: 400
     };
   }
@@ -56,8 +69,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
     auth();
   }
 
-  function updateVersion(id) {
-    $localStorage.version = id;
+  function updateVersion(version) {
+    $localStorage.version = version.id;
+    $localStorage.versionAbbr = version.abbreviation;
     console.log('updated version', $localStorage);
   }
 
@@ -93,8 +107,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   function loadChapters(id) {
     vm.book = false;
     vm.chapter = true;
-    console.log('book id', id);
-    console.log('step', vm.step);
     vm.loading = true;
     var query = vm.query;
     var url = 'https://bibles.org/v2/books/' + id + '/chapters.js';
@@ -103,6 +115,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
     .then(function (res) {
       console.log('Chapter Response:', res);
       vm.chapters = res.data.response.chapters;
+      vm.loading = false;
+    });
+  }
+
+  function loadPassage(chapter) {
+    vm.book = false;
+    vm.chapter = false;
+    vm.passage = true;
+    vm.loading = true;
+    var url = 'https://bibles.org/v2/passages.js?q[]=' + vm.bookName + '+' + chapter + '&version=' + $localStorage.version;
+    console.log(url);
+    $http.get(url)
+    .then(function (res) {
+      console.log('Passage Response:', res);
+      vm.passageText = res.data.response.search.result.passages[0];
       vm.loading = false;
     });
   }

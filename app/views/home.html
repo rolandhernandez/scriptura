@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center">
           <div class="m-stack m-stack--ver m-stack--general">
             <h3 class="m-subheader__title ">
-              Dashboard
+              Dashboard ({{$storage.versionAbbr || 'KJV'}})
             </h3>
           </div>
         </div>
@@ -30,7 +30,7 @@
                         <span ng-if="$storage.version === 'eng-KJV'"><b>KJV</b></span>
                         <span ng-if="$storage.version !== 'eng-KJV'">KJV</span>
                       </a>
-                      <a class="dropdown-item text-center" href="#" ng-repeat="version in ctrl.versions | filter: { id: '!eng-KJVA'}" ng-click="ctrl.updateVersion(version.id)">
+                      <a class="dropdown-item text-center" href="#" ng-repeat="version in ctrl.versions | filter: { id: '!eng-KJVA'}" ng-click="ctrl.updateVersion(version)">
                         <span ng-if="$storage.version === version.id"><b>{{version.abbreviation}}</b></span>
                         <span ng-if="$storage.version !== version.id">{{version.abbreviation}}</span>
                       </a>
@@ -154,7 +154,7 @@
             <a class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" href="#m_tabs_5_2">{{ctrl.bookName || 'Verse'}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_5_3">Passage</a>
+            <a class="nav-link" ng-class="{ 'active': ctrl.passage, 'disabled': (ctrl.book || ctrl.chapter) && !ctrl.chapter }" data-toggle="tab" href="#m_tabs_5_3">{{ ctrl.passageText.display || 'Passage'}}</a>
           </li>
         </ul>
       </div>
@@ -187,14 +187,22 @@
             <div class="m-widget1__item" ng-repeat="chapter in ctrl.chapters | filter: { chapter: '!int'}">
               <div class="row m-row--no-padding align-items-center">
                 <div class="col btn hvr-grow-rotate">
-                  <h3 class="m-widget1__title text-center">{{'Chapter ' + chapter.chapter}}</h3>
+                  <h3 class="m-widget1__title text-center" ng-click="ctrl.loadPassage(chapter.chapter);" href="#m_tabs_5_3">{{'Chapter ' + chapter.chapter}}</h3>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="m_tabs_5_3" role="tabpanel">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+        <div class="tab-pane" ng-class="{ 'active': ctrl.passage }" id="m_tabs_5_3" role="tabpanel">
+          <div class="row" ng-if="ctrl.loading">
+            <div class="col-sm-12 text-center spinner">
+              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div ng-scrollbars ng-scrollbars-config="ctrl.passageScrollbar" ng-scrollbars-update=updateScrollbar  style="padding: 25px;">
+            <span ng-bind-html="ctrl.passageText.text"></span>
+          </div>
         </div>
         <div class="tab-pane" id="m_tabs_5_4" role="tabpanel">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
