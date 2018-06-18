@@ -1,20 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Bangers');
+@import url('https://fonts.googleapis.com/css?family=Suez+One');
 
 /***********  Global ************/
 
+html {
+  width:450px;
+  height:450px;
+}
+
 body {
-  width:320px;
+  width:450px;
   height:450px;
 }
 
 .logo-image {
-  width:50px;
+  width:45px;
 }
 
 .logo-text {
-  font-family: 'Bangers', cursive;
-  font-size: 3em;
-  float: left;
+  font-family: 'Suez One', serif;
+  font-size: 2em;
+  float: none;
+  text-align: center;
 }
 
 /***********  Home ************/

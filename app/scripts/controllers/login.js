@@ -1,4 +1,4 @@
-app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',function($scope, $http, $localStorage, $state) {
+app.controller('LoginCtrl', ['$scope', '$http', '$localStorage', '$state',function($scope, $http, $localStorage, $state) {
   var vm = this;
 
   vm.searching = false;
@@ -6,36 +6,23 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   vm.type = ''; // init search result doctype
   vm.search = search; // set search isFunction
   vm.updateVersion = updateVersion //set function for updating version
-  vm.books = [];
 
   init();
 
   function init() {
-    auth();
+    vm.auth = auth;
     $scope.$storage = $localStorage;
-    loadVersions();
-    loadBooks();
-    vm.scrollbar = {
-      autoHideScrollbar: true,
-      theme: 'light',
-      advanced:{
-        updateOnContentResize: true
-      },
-      axis: 'y',
-      mouseWheel:{ enable: true },
-      setHeight: 300,
-      scrollInertia: 400
-    };
   }
 
   function auth() {
     const authResult = JSON.parse(localStorage.authResult || '{}');
     const token = authResult.id_token;
     if (!token && !isLoggedIn(token)) {
-      // chrome.runtime.sendMessage({
-      //   type: "authenticate"
-      // });
-      $state.go('login');
+      chrome.runtime.sendMessage({
+        type: "authenticate"
+      });
+    } else {
+      $state.go('home');
     }
   }
 
@@ -65,19 +52,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
     .then(function (res) {
       console.log('Version Response:', res);
       vm.versions = res.data.response.versions;
-      vm.loading = false;
-    });
-  }
-
-  function loadBooks() {
-    vm.loading = true;
-    var query = vm.query;
-    var url = 'https://bibles.org/v2/versions/' + $localStorage.version + '/books.js';
-    console.log(url);
-    $http.get(url)
-    .then(function (res) {
-      console.log('Book Response:', res);
-      vm.books = res.data.response.books;
       vm.loading = false;
     });
   }

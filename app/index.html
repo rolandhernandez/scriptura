@@ -22,6 +22,7 @@
 	<!--end::Base Styles -->
 	<link href="styles/main.css" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+	<link rel="stylesheet" href="bower_components/hover/css/hover-min.css" />
 	<!-- end::Custom Styles -->
 </head>
 <!-- end::Head -->
@@ -40,7 +41,7 @@
 	</div>
 	<!-- end::Page Loader -->
 	<!-- begin:: Page -->
-	<div class="m-grid m-grid--hor m-grid--root m-page">
+	<div class="m-grid m-grid--hor m-grid--root m-page" ng-scrollbars>
 		<!-- BEGIN: Header -->
 		<header class="m-grid__item    m-header "  data-minimize="minimize" data-minimize-mobile="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
 			<div class="m-container m-container--fluid m-container--full-height">
@@ -51,8 +52,8 @@
 							<div class="m-stack__item m-stack__item--middle m-brand__logo">
 								<a class="m-brand__logo-wrapper">
 									<div class="logo-text">
-										<img class="logo-image" src="assets/app/media/img/logos/bible.svg" />
-										<b>Scriptura</b>
+										<img class="logo-image" src="assets/app/media/img/logos/bible.svg" ng-hide="true"/>
+										<b>Scriptura.</b>
 									</div>
 								</a>
 							</div>
@@ -79,6 +80,12 @@
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/ngstorage/ngStorage.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
+
+	<!-- Scroll bar -->
+	<link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" type="text/css"/>
+	<script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="bower_components/ng-scrollbars/dist/scrollbars.min.js"></script>
+
 	<!-- Auth0 -->
 	<script src="assets/auth/auth0chrome.min.js"></script>
 	<script src="bower_components/jwt-decode/build/jwt-decode.min.js"></script>
@@ -88,6 +95,7 @@
 	<script src="scripts/app.run.js"></script>
 	<script src="scripts/app.config.js"></script>
 	<script src="scripts/app.routes.js"></script>
+	<script src="scripts/controllers/login.js"></script>
 	<script src="scripts/services/auth.js"></script>
 	<script src="scripts/controllers/book.js"></script>
 	<script src="scripts/controllers/main.js"></script>

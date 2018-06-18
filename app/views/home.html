@@ -23,7 +23,7 @@
                 <div class="m-portlet m-portlet--half-height">
                   <div class="dropdown">
                     <button class="btn btn-block btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Version
+                      Select Version
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform; width:100%;">
                       <a class="dropdown-item text-center" href="#" ng-click="ctrl.updateVersion('eng-KJV')">
@@ -84,14 +84,14 @@
                 </ul>
                 <div class="m-portlet m-portlet--half-height">
                   <div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<h3 class="m-portlet__head-text">
-													{{(ctrl.searchResults.length || 0) + ' search results'}}
-												</h3>
-											</div>
-										</div>
-									</div>
+                    <div class="m-portlet__head-caption">
+                      <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                          {{(ctrl.searchResults.length || 0) + ' search results'}}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
                   <div class="m-portlet__body">
                     <div class="row" ng-if="ctrl.searching">
                       <div class="col-sm-12 text-center spinner">
@@ -118,61 +118,75 @@
                           </div>
                         </div>
                         <!-- <ul class="list-group">
-                          <li class="list-group-item" ng-repeat="result in ctrl.searchResults">
-                            <div class="row">
-                              <div class="col-sm-12 text-left">
-                                <b>{{result.display || result.reference}}</b>
-                                <i class="fa fa-angle-right pull-right" ng-if="ctrl.type === 'verses'" aria-hidden="true"></i>
-                              </div>
-                            </div>
-                            <div ng-bind-html="result.text"></div>
-                          </li>
-                        </ul> -->
+                        <li class="list-group-item" ng-repeat="result in ctrl.searchResults">
+                        <div class="row">
+                        <div class="col-sm-12 text-left">
+                        <b>{{result.display || result.reference}}</b>
+                        <i class="fa fa-angle-right pull-right" ng-if="ctrl.type === 'verses'" aria-hidden="true"></i>
                       </div>
                     </div>
-                  </div>
-                </div>
+                    <div ng-bind-html="result.text"></div>
+                  </li>
+                </ul> -->
               </div>
             </div>
-            <!-- End Search Results -->
-            <!--end:: Search-->
           </div>
         </div>
-        <!--End::Section-->
-
-        <!--Begin::Section-->
-        <div class="row" ng-if="!ctrl.searching && !ctrl.searchResults">
-          <div class="col-xl-6">
-            <!--begin:: Widgets/Quick Stats-->
-            <div class="row m-row--full-height">
-              <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="m-portlet m-portlet--half-height m-portlet--border-bottom-success ">
-                  <div class="m-portlet__body">
-                    <!-- Placeholder / Home Empty State -->
-                    <div class="row">
-                      <div class="col-sm text-center placeholder">
-                        <i class="fa fa-search fa-5x" aria-hidden="true"></i>
-                        <p class="lead">Start searching above</p>
-                        <p>
-                          or
-                        </p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm text-center">
-                        <button type="button" class="btn btn-block btn-success" ui-sref="books">Browse Books</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="m--space-30"></div>
-              </div>
-            </div>
-            <!--end:: Widgets/Quick Stats-->
-          </div>
-        </div>
-        <!--End::Section-->
       </div>
     </div>
+    <!-- End Search Results -->
+    <!--end:: Search-->
   </div>
+</div>
+<!--End::Section-->
+
+<!--Begin::Section-->
+<!--begin:: Widgets/Quick Stats-->
+<div class="row m-row--full-height">
+  <div class="col-sm-12">
+    <div class="m-portlet m-portlet--half-height m-portlet--border-bottom-success ">
+      <div class="m-portlet__head">
+        <ul class="nav nav-pills nav-fill" role="tablist" style="margin-top:15px;">
+          <li class="nav-item">
+            <a class="nav-link active show" data-toggle="tab" href="#m_tabs_5_1">Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_5_2">Verse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_5_3">Passage</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active show" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
+          <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
+            <div class="m-widget1__item" ng-repeat="book in ctrl.books" ui-sref="chapters({bookId: book.id})">
+              <div class="row m-row--no-padding align-items-center">
+                <div class="col btn hvr-grow-rotate">
+                  <h3 class="m-widget1__title text-center">{{book.name}}</h3>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="m_tabs_5_2" role="tabpanel">
+
+    </div>
+    <div class="tab-pane" id="m_tabs_5_3" role="tabpanel">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+    </div>
+    <div class="tab-pane" id="m_tabs_5_4" role="tabpanel">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+    </div>
+  </div>
+</div>
+<div class="m--space-30"></div>
+</div>
+</div>
+<!--end:: Widgets/Quick Stats-->
+<!--End::Section-->
+</div>
+</div>
+</div>
 </div>
