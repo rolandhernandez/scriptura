@@ -1,5 +1,5 @@
 app.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/dashboard');
   $stateProvider
   .state('login', {
     url: '/login',
@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controllerAs: 'ctrl'
   })
   .state('home', {
-    url: '/',
+    url: '/dashboard',
     templateUrl: 'views/home.html',
     controller: 'MainCtrl',
     controllerAs: 'ctrl'

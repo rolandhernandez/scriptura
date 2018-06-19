@@ -1,4 +1,4 @@
-app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',function($scope, $http, $localStorage, $state) {
+app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analytics',function($scope, $http, $localStorage, $state, Analytics) {
   var vm = this;
 
   vm.searching = false;
@@ -16,42 +16,19 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
 
   function init() {
     auth();
-    $scope.$storage = $localStorage;
-    loadVersions();
-    loadBooks();
-    vm.scrollbar = {
-      autoHideScrollbar: true,
-      theme: 'light',
-      advanced:{
-        updateOnContentResize: true
-      },
-      axis: 'y',
-      mouseWheel:{ enable: true },
-      setHeight: 300,
-      scrollInertia: 400
-    };
-
-    vm.passageScrollbar = {
-      autoHideScrollbar: true,
-      theme: 'light',
-      advanced:{
-        updateOnContentResize: true
-      },
-      axis: 'y',
-      mouseWheel:{ enable: true },
-      setHeight: 800,
-      scrollInertia: 400
-    };
   }
 
   function auth() {
     const authResult = JSON.parse(localStorage.authResult || '{}');
     const token = authResult.id_token;
     if (!token && !isLoggedIn(token)) {
-      // chrome.runtime.sendMessage({
-      //   type: "authenticate"
-      // });
       $state.go('login');
+    } else {
+      console.log(Analytics.getUrl());
+      console.log(Analytics.log)
+      $scope.$storage = $localStorage;
+      loadVersions();
+      loadBooks();
     }
   }
 
@@ -105,6 +82,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   }
 
   function loadChapters(id) {
+    Analytics.trackEvent('button', 'pressed', 'Bible Book (' + vm.bookName + ')');
+    console.log(Analytics.log)
     vm.book = false;
     vm.chapter = true;
     vm.loading = true;
@@ -120,6 +99,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state',functio
   }
 
   function loadPassage(chapter) {
+    Analytics.trackEvent('button', 'pressed', 'Bible Chapter (' + vm.bookName + ' ' + chapter + ')');
     vm.book = false;
     vm.chapter = false;
     vm.passage = true;

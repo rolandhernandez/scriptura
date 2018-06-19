@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', ['$scope', '$http', '$localStorage', '$state',function($scope, $http, $localStorage, $state) {
+app.controller('LoginCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analytics',function($scope, $http, $localStorage, $state, Analytics) {
   var vm = this;
 
   vm.searching = false;
@@ -12,9 +12,11 @@ app.controller('LoginCtrl', ['$scope', '$http', '$localStorage', '$state',functi
   function init() {
     vm.auth = auth;
     $scope.$storage = $localStorage;
+    console.log(Analytics.getUrl());
   }
 
   function auth() {
+    Analytics.trackEvent('button', 'pressed', 'Get Started');
     const authResult = JSON.parse(localStorage.authResult || '{}');
     const token = authResult.id_token;
     if (!token && !isLoggedIn(token)) {
