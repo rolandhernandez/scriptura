@@ -11,6 +11,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   vm.book = true;
   vm.books = [];
   vm.setBookStep = setBookStep;
+  vm.setChapterStep = setChapterStep;
+  vm.currentChapter = 0;
+  vm.lineHeight = 1.9;
+  vm.fontSize = 1.2;
 
   init();
 
@@ -50,6 +54,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
     $localStorage.version = version.id;
     $localStorage.versionAbbr = version.abbreviation;
     console.log('updated version', $localStorage);
+
+    if(vm.passageText) {
+      vm.loadPassage(vm.currentChapter);
+    }
   }
 
   function loadVersions () {
@@ -79,6 +87,13 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   function setBookStep() {
     vm.book = true;
     vm.chapter = false;
+    vm.passage = false;
+  }
+
+  function setChapterStep() {
+    vm.book = false;
+    vm.chapter = true;
+    vm.passage = false;
   }
 
   function loadChapters(id) {
@@ -99,6 +114,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   }
 
   function loadPassage(chapter) {
+    console.log(chapter);
     Analytics.trackEvent('button', 'pressed', 'Bible Chapter (' + vm.bookName + ' ' + chapter + ')');
     vm.book = false;
     vm.chapter = false;
@@ -110,7 +126,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
     .then(function (res) {
       console.log('Passage Response:', res);
       vm.passageText = res.data.response.search.result.passages[0];
+      vm.currentChapter = parseInt(chapter);
       vm.loading = false;
+
+      var ann = new Annotator(document.getElementById("passage"));
     });
   }
 
@@ -118,10 +137,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
     vm.searchResults = undefined; //reset searchResults if already populated
     vm.searching = true;
     var query = vm.query;
-    var url = 'https://bibles.org/v2/search.js?query=' + query + '&version=' + $localStorage.version;
+    var url = 'https://bibles.org/v2/search.js?query=' + query + '&limit=30&version=' + $localStorage.version;
     $http.get(url)
     .then(function (res) {
-      console.log('Response:', res);
+      console.log('Search Response:', res);
       var type = res.data.response.search.result.type;
       switch(type) {
         case 'verses':

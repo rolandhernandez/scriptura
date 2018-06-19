@@ -26,7 +26,7 @@
                       Select Version
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform; width:100%;">
-                      <a class="dropdown-item text-center" href="#" ng-click="ctrl.updateVersion('eng-KJV')">
+                      <a class="dropdown-item text-center" href="#" ng-click="ctrl.updateVersion({id: 'eng-KJV', abbreviation: 'KJV'})">
                         <span ng-if="$storage.version === 'eng-KJV'"><b>KJV</b></span>
                         <span ng-if="$storage.version !== 'eng-KJV'">KJV</span>
                       </a>
@@ -55,7 +55,7 @@
                     <form ng-submit="ctrl.search()">
                       <div class="form-group m-form__group">
                         <div class="input-group input-group-lg">
-                          <input ng-model="ctrl.query" type="text" class="form-control" placeholder="Search for..." autofocus>
+                          <input ng-model="ctrl.query" type="text" class="form-control" placeholder="Quick Search..." autofocus>
                           <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                               Go
@@ -92,128 +92,173 @@
                       </div>
                     </div>
                   </div>
-                  <div class="m-portlet__body">
-                    <div class="row" ng-if="ctrl.searching">
-                      <div class="col-sm-12 text-center spinner">
-                        <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                  <div class="row" ng-if="ctrl.searching">
+                    <div class="col-sm-12 text-center spinner">
+                      <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
                     </div>
-                    <div class="row" ng-if="ctrl.searchResults">
-                      <div class="col-sm-12">
-                        <div class="m-widget4">
-                          <div class="m-widget4__item" ng-repeat="result in ctrl.searchResults">
-                            <div class="m-widget4__info">
-                              <span class="m-widget4__text">
-                                <b>{{result.display || result.reference}}</b>
-                                <br/>
-                                <div ng-bind-html="result.text"></div>
-                              </span>
-                            </div>
-                            <div class="m-widget4__ext" ng-if="ctrl.type === 'verses'">
-                              <a href="#" class="m-widget4__icon">
-                                <i class="fa fa-angle-right pull-right"></i>
-                              </a>
-                            </div>
+                  </div>
+                  <div class="row" ng-if="ctrl.searchResults">
+                    <div class="col-sm-12" style="line-height: {{ctrl.lineHeight}}em; font-size:{{ctrl.fontSize}}em;">
+                      <div class="m-widget4" style="margin:0; padding: 0; max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                        <div class="m-widget4__item" ng-repeat="result in ctrl.searchResults">
+                          <div class="m-widget4__info">
+                            <span class="m-widget4__text">
+                              <b>{{result.display || result.reference}}</b>
+                              <br/>
+                              <div ng-bind-html="result.text"></div>
+                            </span>
+                          </div>
+                          <div class="m-widget4__ext" ng-if="ctrl.type === 'verses'">
+                            <a href="#" class="m-widget4__icon">
+                              <i class="fa fa-angle-right pull-right"></i>
+                            </a>
                           </div>
                         </div>
-                        <!-- <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="result in ctrl.searchResults">
-                        <div class="row">
-                        <div class="col-sm-12 text-left">
-                        <b>{{result.display || result.reference}}</b>
-                        <i class="fa fa-angle-right pull-right" ng-if="ctrl.type === 'verses'" aria-hidden="true"></i>
                       </div>
                     </div>
-                    <div ng-bind-html="result.text"></div>
-                  </li>
-                </ul> -->
+                  </div>
+                </div>
               </div>
             </div>
+            <!-- End Search Results -->
+            <!--end:: Search-->
           </div>
         </div>
-      </div>
-    </div>
-    <!-- End Search Results -->
-    <!--end:: Search-->
-  </div>
-</div>
-<!--End::Section-->
+        <!--End::Section-->
 
-<!--Begin::Section-->
-<!--begin:: Widgets/Quick Stats-->
-<div class="row m-row--full-height">
-  <div class="col-sm-12">
-    <div class="m-portlet m-portlet--half-height m-portlet--border-bottom-success ">
-      <div class="m-portlet__head">
-        <ul class="nav nav-pills nav-fill" role="tablist" style="margin-top:15px;">
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{ 'active': ctrl.book && !ctrl.chapter }" data-toggle="tab" ng-click="ctrl.setBookStep();" href="#m_tabs_5_1">Book</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" href="#m_tabs_5_2">{{ctrl.bookName || 'Verse'}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{ 'active': ctrl.passage, 'disabled': (ctrl.book || ctrl.chapter) && !ctrl.chapter }" data-toggle="tab" href="#m_tabs_5_3">{{ ctrl.passageText.display || 'Passage'}}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div class="tab-pane" ng-class="{ 'active': ctrl.book }" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
-          <div class="row" ng-if="ctrl.loading">
-            <div class="col-sm-12 text-center spinner">
-              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-          <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
-            <div class="m-widget1__item" ng-repeat="book in ctrl.books">
-              <div class="row m-row--no-padding align-items-center">
-                <div class="col btn hvr-grow-rotate">
-                  <h3 class="m-widget1__title text-center" ng-click="ctrl.bookName = book.name; ctrl.loadChapters(book.id);" href="#m_tabs_5_2">{{book.name}}</h3>
+        <!--Begin::Section-->
+        <!--begin:: Widgets/Quick Stats-->
+        <div class="row m-row--full-height">
+          <div class="col-sm-12">
+            <div class="m-portlet m-portlet--half-height m-portlet--border-bottom-success ">
+              <div class="m-portlet__head">
+                <ul class="nav nav-pills nav-fill" role="tablist" style="margin-top:15px;">
+                  <li class="nav-item">
+                    <a class="nav-link" ng-class="{ 'active': ctrl.book && !ctrl.chapter }" data-toggle="tab" ng-click="ctrl.setBookStep();" href="#m_tabs_5_1">Book</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" ng-click="ctrl.setChapterStep();" href="#m_tabs_5_2">{{ctrl.bookName || 'Verse'}}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" ng-class="{ 'active': ctrl.passage, 'disabled': (ctrl.book || ctrl.chapter) && !ctrl.chapter }" data-toggle="tab" href="#m_tabs_5_3">{{ ctrl.passageText.display || 'Passage'}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <div class="tab-pane" ng-class="{ 'active': ctrl.book }" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
+                  <div class="row" ng-if="ctrl.loading">
+                    <div class="col-sm-12 text-center spinner">
+                      <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0; max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                    <div class="m-widget1__item" ng-repeat="book in ctrl.books">
+                      <div class="row m-row--no-padding align-items-center">
+                        <div class="col btn hvr-grow-rotate">
+                          <h3 class="m-widget1__title text-center" ng-click="ctrl.bookName = book.name; ctrl.loadChapters(book.id);" href="#m_tabs_5_2">{{book.name}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" ng-class="{ 'active': ctrl.chapter }" id="m_tabs_5_2" role="tabpanel">
+                  <div class="row" ng-if="ctrl.loading">
+                    <div class="col-sm-12 text-center spinner">
+                      <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
+                    <div class="m-widget1__item" ng-repeat="chapter in ctrl.chapters | filter: { chapter: '!int'}">
+                      <div class="row m-row--no-padding align-items-center">
+                        <div class="col btn hvr-grow-rotate">
+                          <h3 class="m-widget1__title text-center" ng-click="ctrl.loadPassage(chapter.chapter);" href="#m_tabs_5_3">{{'Chapter ' + chapter.chapter}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" ng-class="{ 'active': ctrl.passage }" id="m_tabs_5_3" role="tabpanel">
+                  <div class="row" ng-if="ctrl.loading">
+                    <div class="col-sm-12 text-center spinner">
+                      <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <div ng-scrollbars ng-scrollbars-config="ctrl.passageScrollbar" ng-scrollbars-update=updateScrollbar  style="padding: 25px;">
+                    <span id="passage" style="line-height: {{ctrl.lineHeight}}em; font-size:{{ctrl.fontSize}}em;" ng-bind-html="ctrl.passageText.text"></span>
+                    <div class="row">
+                      <div class="col-xs-6 m--margin-10">
+                        <a ng-click="ctrl.loadPassage(ctrl.currentChapter - 1);" ng-if="ctrl.currentChapter > 1" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
+                          <span>
+                            <i class="fa fa-chevron-left"></i>
+                            <span>Previous Chapter</span>
+                          </span>
+                        </a>
+                      </div>
+                      <div class="col-xs-6 m--margin-10">
+                        <a ng-click="ctrl.loadPassage(ctrl.currentChapter + 1);" ng-if="ctrl.currentChapter < ctrl.chapters.length" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
+                          <span>
+                            <span>Next Chapter</span>
+                            <i class="fa fa-chevron-right"></i>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="m--space-30"></div>
           </div>
         </div>
-        <div class="tab-pane" ng-class="{ 'active': ctrl.chapter }" id="m_tabs_5_2" role="tabpanel">
-          <div class="row" ng-if="ctrl.loading">
-            <div class="col-sm-12 text-center spinner">
-              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
-              <span class="sr-only">Loading...</span>
-            </div>
+        <!--end:: Widgets/Quick Stats-->
+        <!--End::Section-->
+
+        <!-- begin: share -->
+        <div class="row m--margin-bottom-20">
+          <div class="col-md-6">
+            <p class="text-muted">Share with a friend</p>
           </div>
-          <div class="m-widget1" ng-scrollbars ng-scrollbars-config="ctrl.scrollbar"  style="margin:0; padding: 0;">
-            <div class="m-widget1__item" ng-repeat="chapter in ctrl.chapters | filter: { chapter: '!int'}">
-              <div class="row m-row--no-padding align-items-center">
-                <div class="col btn hvr-grow-rotate">
-                  <h3 class="m-widget1__title text-center" ng-click="ctrl.loadPassage(chapter.chapter);" href="#m_tabs_5_3">{{'Chapter ' + chapter.chapter}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane" ng-class="{ 'active': ctrl.passage }" id="m_tabs_5_3" role="tabpanel">
-          <div class="row" ng-if="ctrl.loading">
-            <div class="col-sm-12 text-center spinner">
-              <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-          <div ng-scrollbars ng-scrollbars-config="ctrl.passageScrollbar" ng-scrollbars-update=updateScrollbar  style="padding: 25px;">
-            <span ng-bind-html="ctrl.passageText.text"></span>
-          </div>
-        </div>
-        <div class="tab-pane" id="m_tabs_5_4" role="tabpanel">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-        </div>
-      </div>
-    </div>
-    <div class="m--space-30"></div>
+          <div class="col-md-6">
+            <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+            socialshare
+            socialshare-provider="facebook"
+            socialshare-text="Scriptura Chrome Extension"
+            socialshare-hashtags="scriptura, wordofgod"
+            socialshare-url="https://rolandsaenz.com/scriptura">
+            <i class="fa fa-facebook-f"></i>
+          </a>
+          <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+          socialshare
+          socialshare-provider="twitter"
+          socialshare-text="Scriptura Chrome Extension"
+          socialshare-hashtags="scriptura, wordofgod"
+          socialshare-url="https://rolandsaenz.com/scriptura">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+        socialshare
+        socialshare-provider="buffer"
+        socialshare-text="Check out the Scriptura Chrome Extension"
+        socialshare-url="https://rolandsaenz.com/scriptura"
+        socialshare-via="Scriptura">
+        <i class="socicon-buffer"></i>
+      </a>
+      <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+      socialshare
+      socialshare-provider="email"
+      socialshare-subject="Check out the Scriptura Chrome Extension"
+      socialshare-body="You can read more about it here: https://rolandsaenz.com/scriptura">
+      <i class="fa fa-envelope"></i>
+    </a>
   </div>
 </div>
-<!--end:: Widgets/Quick Stats-->
-<!--End::Section-->
+<!-- end: share-->
+
+
 </div>
 </div>
 </div>
