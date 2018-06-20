@@ -3,7 +3,8 @@ app.run(['$localStorage', 'Analytics', '$transitions', function($localStorage, A
   $localStorage.$default({
     version: 'eng-KJV',
     fontSize: 1.2,
-    lineHeight: 1.9
+    lineHeight: 1.9,
+    versionAbbr: 'KJV'
   });
 
   $transitions.onSuccess({}, function(trans) {

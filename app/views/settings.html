@@ -46,9 +46,9 @@
                         <div class="col-2">
                         </div>
                         <div class="col-10">
-                          <button type="button" ui-sref="home" class="btn btn-secondary m-btn--wide">Close</button>
-                          <button type="button" ng-if="ctrl.fontSize > 1.2 || ctrl.lineHeight > 1.9" ng-click="ctrl.reset()" class="btn btn-metal m-btn--wide">Reset</button>
-                          <button type="button" class="btn btn-success m-btn--wide">Save</button>
+                          <button ga-track-event="['button', 'pressed', 'Close Settings View']" type="button" ui-sref="home" class="btn btn-secondary m-btn--wide">Close</button>
+                          <button ga-track-event="['button', 'pressed', 'Reset Default Settings']" type="button" ng-if="ctrl.fontSize > 1.2 || ctrl.lineHeight > 1.9" ng-click="ctrl.reset()" class="btn btn-metal m-btn--wide">Reset</button>
+                          <button ga-track-event="['button', 'pressed', 'Save New User Settings']" type="button" class="btn btn-success m-btn--wide">Save</button>
                         </div>
                       </div>
                     </div>

@@ -53,6 +53,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   }
 
   function updateVersion(version) {
+
+    Analytics.trackEvent('version', 'changed', $localStorage.versionAbbr + ' => ' + version.abbreviation);
+
+    console.log(Analytics.log)
+
     $localStorage.version = version.id;
     $localStorage.versionAbbr = version.abbreviation;
     console.log('updated version', $localStorage);
@@ -136,6 +141,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   }
 
   function search() {
+
+    Analytics.trackEvent('search', 'submit', 'Query: ' + vm.query);
+
+    console.log(Analytics.log)
+
     vm.searchResults = undefined; //reset searchResults if already populated
     vm.searching = true;
     vm.showSearchResults = true;

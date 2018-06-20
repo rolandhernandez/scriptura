@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center">
           <div class="m-stack m-stack--ver m-stack--general">
             <h3 class="m-subheader__title ">
-              Dashboard ({{$storage.versionAbbr || 'KJV'}})
+              Dashboard ({{$storage.versionAbbr}})
             </h3>
           </div>
         </div>
@@ -22,7 +22,7 @@
               <div class="col-sm-12 col-md-12 col-lg-6">
                 <div class="m-portlet m-portlet--half-height">
                   <div class="dropdown">
-                    <button class="btn btn-block btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-block btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ga-track-event="['button', 'pressed', 'Select Version Dropdown']">
                       Select Version
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform; width:100%;">
@@ -57,7 +57,7 @@
                         <div class="input-group input-group-lg">
                           <input ng-model="ctrl.query" type="text" class="form-control" placeholder="Quick Search (e.g. John 1)..." autofocus>
                           <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-primary" type="submit" ga-track-event="['button', 'pressed', 'Search Form: Go']">
                               Go
                             </button>
                           </div>
@@ -74,7 +74,7 @@
               <div class="col-sm-12 col-md-12 col-lg-6">
                 <ul class="m-nav">
                   <li class="m-nav__item">
-                    <a href="#" ng-click="ctrl.showSearchResults = false;" class="m-nav__link">
+                    <a href="#" ng-click="ctrl.showSearchResults = false;" class="m-nav__link" ga-track-event="['button', 'pressed', 'Close Search Results']">
                       <i class="m-nav__link-icon fa fa-times-circle"></i>
                       <span class="m-nav__link-text">
                         Close
@@ -191,7 +191,7 @@
                     <span id="passage" style="line-height: {{ctrl.lineHeight}}em; font-size:{{ctrl.fontSize}}em;" ng-bind-html="ctrl.passageText.text"></span>
                     <div class="row">
                       <div class="col-xs-6 m--margin-10">
-                        <a ng-click="ctrl.loadPassage(ctrl.currentChapter - 1);" ng-if="ctrl.currentChapter > 1" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
+                        <a ga-track-event="['button', 'pressed', 'Previous Chapter']" ng-click="ctrl.loadPassage(ctrl.currentChapter - 1);" ng-if="ctrl.currentChapter > 1" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
                           <span>
                             <i class="fa fa-chevron-left"></i>
                             <span>Previous Chapter</span>
@@ -199,7 +199,7 @@
                         </a>
                       </div>
                       <div class="col-xs-6 m--margin-10">
-                        <a ng-click="ctrl.loadPassage(ctrl.currentChapter + 1);" ng-if="ctrl.currentChapter < ctrl.chapters.length" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
+                        <a ga-track-event="['button', 'pressed', 'Next Chapter']" ng-click="ctrl.loadPassage(ctrl.currentChapter + 1);" ng-if="ctrl.currentChapter < ctrl.chapters.length" class="btn btn-secondary m-btn m-btn--icon m-btn--pill">
                           <span>
                             <span>Next Chapter</span>
                             <i class="fa fa-chevron-right"></i>
@@ -223,7 +223,7 @@
             <p class="text-muted">Share with a friend</p>
           </div>
           <div class="col-md-6">
-            <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+            <a ga-track-event="['share button', 'pressed', 'Facebook']" href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
             socialshare
             socialshare-provider="facebook"
             socialshare-text="Scriptura Chrome Extension"
@@ -231,7 +231,7 @@
             socialshare-url="https://rolandsaenz.com/scriptura">
             <i class="fa fa-facebook-f"></i>
           </a>
-          <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+          <a ga-track-event="['share button', 'pressed', 'Twitter']" href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
           socialshare
           socialshare-provider="twitter"
           socialshare-text="Scriptura Chrome Extension"
@@ -239,7 +239,7 @@
           socialshare-url="https://rolandsaenz.com/scriptura">
           <i class="fa fa-twitter"></i>
         </a>
-        <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+        <a ga-track-event="['share button', 'pressed', 'Buffer']" href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
         socialshare
         socialshare-provider="buffer"
         socialshare-text="Check out the Scriptura Chrome Extension"
@@ -247,7 +247,7 @@
         socialshare-via="Scriptura">
         <i class="socicon-buffer"></i>
       </a>
-      <a href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
+      <a ga-track-event="['share button', 'pressed', 'Email']" href="#" class="btn btn-outline-success m-btn m-btn--icon btn-lg m-btn--icon-only m-btn--pill m-btn--air"
       socialshare
       socialshare-provider="email"
       socialshare-subject="Check out the Scriptura Chrome Extension"

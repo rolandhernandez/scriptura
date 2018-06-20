@@ -16,8 +16,12 @@ app.controller('SettingsCtrl', ['$scope', '$http', '$localStorage', '$state', 'A
   }
 
   function save() {
+
     $localStorage.fontSize = vm.fontSize || 1.2;
     $localStorage.lineHeight = vm.lineHeight || 1.9;
+
+    Analytics.trackEvent('font size', 'changed', $localStorage.fontSize + 'em');
+    Analytics.trackEvent('line height', 'changed', $localStorage.fontSize + 'em');
 
     $state.go('home');
   }
