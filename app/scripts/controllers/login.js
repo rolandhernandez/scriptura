@@ -13,6 +13,9 @@ app.controller('LoginCtrl', ['$scope', '$http', '$localStorage', '$state', 'Anal
     vm.auth = auth;
     $scope.$storage = $localStorage;
     console.log(Analytics.getUrl());
+
+    var imgURL = chrome.extension.getURL("assets/read-icon.png");
+    document.getElementById("onboard-image").src = imgURL;
   }
 
   function auth() {
