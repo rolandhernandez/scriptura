@@ -135,13 +135,13 @@
               <div class="m-portlet__head">
                 <ul class="nav nav-pills nav-fill" role="tablist" style="margin-top:15px;">
                   <li class="nav-item">
-                    <a class="nav-link" ng-class="{ 'active': ctrl.book && !ctrl.chapter }" data-toggle="tab" ng-click="ctrl.setBookStep();" href="#m_tabs_5_1">Book</a>
+                    <a ga-track-event="['tab', 'pressed', 'Book']" class="nav-link" ng-class="{ 'active': ctrl.book && !ctrl.chapter }" data-toggle="tab" ng-click="ctrl.setBookStep();" href="#m_tabs_5_1">Book</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" ng-click="ctrl.setChapterStep();" href="#m_tabs_5_2">{{ctrl.bookName || 'Verse'}}</a>
+                    <a ga-track-event="['tab', 'pressed', 'Chapter']" class="nav-link" ng-class="{ 'active': ctrl.chapter, 'disabled': ctrl.book && !ctrl.chapters }" data-toggle="tab" ng-click="ctrl.setChapterStep();" href="#m_tabs_5_2">{{ctrl.bookName || 'Chapter'}}</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" ng-class="{ 'active': ctrl.passage, 'disabled': (ctrl.book || ctrl.chapter) && !ctrl.chapter }" data-toggle="tab" href="#m_tabs_5_3">{{ ctrl.passageText.display || 'Passage'}}</a>
+                    <a ga-track-event="['tab', 'pressed', 'Passage']" class="nav-link" ng-class="{ 'active': ctrl.passage, 'disabled': (ctrl.book || ctrl.chapter) && !ctrl.chapter }" data-toggle="tab" href="#m_tabs_5_3">{{ ctrl.passageText.display || 'Passage'}}</a>
                   </li>
                 </ul>
               </div>
