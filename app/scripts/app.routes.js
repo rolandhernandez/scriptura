@@ -1,10 +1,22 @@
 app.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/dashboard');
   $stateProvider
+  .state('login', {
+    url: '/login',
+    templateUrl: 'views/login.html',
+    controller: 'LoginCtrl',
+    controllerAs: 'ctrl'
+  })
   .state('home', {
-    url: '/',
+    url: '/dashboard',
     templateUrl: 'views/home.html',
     controller: 'MainCtrl',
+    controllerAs: 'ctrl'
+  })
+  .state('settings', {
+    url: '/settings',
+    templateUrl: 'views/settings.html',
+    controller: 'SettingsCtrl',
     controllerAs: 'ctrl'
   })
   .state('books', {
