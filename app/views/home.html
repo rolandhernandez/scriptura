@@ -55,7 +55,7 @@
                     <form ng-submit="ctrl.search()">
                       <div class="form-group m-form__group">
                         <div class="input-group input-group-lg">
-                          <input ng-model="ctrl.query" type="text" class="form-control" placeholder="Quick Search..." autofocus>
+                          <input ng-model="ctrl.query" type="text" class="form-control" placeholder="Quick Search (e.g. John 1)..." autofocus>
                           <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                               Go
@@ -70,14 +70,14 @@
             </div>
 
             <!-- Search Results -->
-            <div class="row m-row--full-height" ng-if="ctrl.searching || ctrl.searchResults">
+            <div class="row m-row--full-height" ng-if="ctrl.searching || ctrl.showSearchResults">
               <div class="col-sm-12 col-md-12 col-lg-6">
                 <ul class="m-nav">
                   <li class="m-nav__item">
-                    <a href="#" ng-click="ctrl.searchResults = undefined;" class="m-nav__link">
-                      <i class="m-nav__link-icon fa fa-arrow-left"></i>
+                    <a href="#" ng-click="ctrl.showSearchResults = false;" class="m-nav__link">
+                      <i class="m-nav__link-icon fa fa-times-circle"></i>
                       <span class="m-nav__link-text">
-                        Back
+                        Close
                       </span>
                     </a>
                   </li>
@@ -93,13 +93,13 @@
                     </div>
                   </div>
                   <div class="row" ng-if="ctrl.searching">
-                    <div class="col-sm-12 text-center spinner">
+                    <div class="col-sm-12 text-center spinner m--padding-10">
                       <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
                       <span class="sr-only">Loading...</span>
                     </div>
                   </div>
                   <div class="row" ng-if="ctrl.searchResults">
-                    <div class="col-sm-12" style="line-height: {{ctrl.lineHeight}}em; font-size:{{ctrl.fontSize}}em;">
+                    <div class="col-sm-12" style="line-height: {{ctrl.lineHeight}}em; font-size:1.4em;">
                       <div class="m-widget4" style="margin:0; padding: 0; max-height: 300px; overflow-y: auto; overflow-x:hidden;">
                         <div class="m-widget4__item" ng-repeat="result in ctrl.searchResults">
                           <div class="m-widget4__info">
@@ -148,7 +148,7 @@
               <div class="tab-content">
                 <div class="tab-pane" ng-class="{ 'active': ctrl.book }" id="m_tabs_5_1" role="tabpanel"  style="margin:0; padding: 0;">
                   <div class="row" ng-if="ctrl.loading">
-                    <div class="col-sm-12 text-center spinner">
+                    <div class="col-sm-12 text-center spinner m--padding-10">
                       <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
                       <span class="sr-only">Loading...</span>
                     </div>

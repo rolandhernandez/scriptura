@@ -1,7 +1,9 @@
 app.run(['$localStorage', 'Analytics', '$transitions', function($localStorage, Analytics, $transitions) {
   //Set Default bible version
   $localStorage.$default({
-    version: 'eng-KJV'
+    version: 'eng-KJV',
+    fontSize: 1.2,
+    lineHeight: 1.9
   });
 
   $transitions.onSuccess({}, function(trans) {

@@ -13,6 +13,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MainCtrl',
     controllerAs: 'ctrl'
   })
+  .state('settings', {
+    url: '/settings',
+    templateUrl: 'views/settings.html',
+    controller: 'SettingsCtrl',
+    controllerAs: 'ctrl'
+  })
   .state('books', {
     url: '/books',
     templateUrl: 'views/books.html',

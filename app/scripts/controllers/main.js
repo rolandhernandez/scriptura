@@ -13,8 +13,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   vm.setBookStep = setBookStep;
   vm.setChapterStep = setChapterStep;
   vm.currentChapter = 0;
-  vm.lineHeight = 1.9;
-  vm.fontSize = 1.2;
+  vm.lineHeight = $localStorage.lineHeight || 1.9;
+  vm.fontSize = $localStorage.fontSize || 1.2;
+  vm.searchResults = [];
+  vm.showSearchResults = false;
 
   init();
 
@@ -136,6 +138,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$localStorage', '$state', 'Analy
   function search() {
     vm.searchResults = undefined; //reset searchResults if already populated
     vm.searching = true;
+    vm.showSearchResults = true;
     var query = vm.query;
     var url = 'https://bibles.org/v2/search.js?query=' + query + '&limit=30&version=' + $localStorage.version;
     $http.get(url)
