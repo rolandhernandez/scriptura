@@ -1,0 +1,66 @@
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+  <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl m-container--full-height">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+      <!-- BEGIN: Subheader -->
+      <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+          <div class="m-stack m-stack--ver m-stack--general">
+            <h3 class="m-subheader__title ">
+              Settings
+            </h3>
+          </div>
+        </div>
+      </div>
+      <!-- END: Subheader -->
+      <div class="m-content">
+
+        <!--Begin::Version-->
+        <div class="row">
+          <div class="col-xl-6">
+            <!--begin:: Dropdown-->
+            <div class="row m-row--full-height">
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="m-portlet m-portlet m-portlet--tab">
+                  <div class="m-portlet__body">
+                    <div class="form-group m-form__group m--margin-top-10">
+                      <div class="alert m-alert m-alert--default" role="alert">
+                        Adjust settings for certain sections of Scriptura
+                      </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                      <label for="example-text-input" class="col-6 col-form-label">Font Size (1.2 - 2.0)</label>
+                      <div class="col-6">
+                        <input class="form-control m-input" ng-model="ctrl.fontSize" type="number" value="1.2" step="0.1" min="1.2" max="2.0" id="example-text-input">
+                      </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                      <label for="example-text-input" class="col-6 col-form-label">Line Height (1.9 - 2.5)</label>
+                      <div class="col-6">
+                        <input class="form-control m-input" ng-model="ctrl.lineHeight" type="number" value="1.9" step="0.1" min="1.9" max="2.5" id="example-text-input">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions m--padding-10">
+                      <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10">
+                          <button ga-track-event="['button', 'pressed', 'Close Settings View']" type="button" ui-sref="home" class="btn btn-secondary m-btn--wide">Close</button>
+                          <button ga-track-event="['button', 'pressed', 'Reset Default Settings']" type="button" ng-if="ctrl.fontSize > 1.2 || ctrl.lineHeight > 1.9" ng-click="ctrl.reset()" class="btn btn-metal m-btn--wide">Reset</button>
+                          <button ga-track-event="['button', 'pressed', 'Save New User Settings']" type="button" class="btn btn-success m-btn--wide">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end:: Dropdown-->
+          </div>
+        </div>
+        <!--End::Version-->
+      </div>
+    </div>
+  </div>
+</div>

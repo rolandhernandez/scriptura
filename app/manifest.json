@@ -1,10 +1,10 @@
 {
   "name": "__MSG_appName__",
-  "version": "1.1.2",
+  "version": "1.2.3",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
-    "128": "assets/icon.png"
+    "128": "assets/scriptura-icon.png"
   },
   "default_locale": "en",
   "background": {
@@ -16,38 +16,22 @@
     ]
   },
   "permissions": [
-    "http://*/*",
-    "https://*/*",
     "background",
-    "bookmarks",
-    "clipboardRead",
-    "clipboardWrite",
-    "contentSettings",
     "cookies",
-    "*://*.google.com/",
-    "debugger",
-    "history",
-    "idle",
-    "management",
     "notifications",
-    "pageCapture",
-    "tabs",
-    "topSites",
-    "storage",
-    "webNavigation",
-    "webRequest",
-    "webRequestBlocking",
-    "identity"
+    "identity",
+    "https://bibles.org/"
   ],
   "browser_action": {
     "default_icon": {
-      "128": "assets/icon.png"
+      "128": "assets/scriptura-icon.png"
     },
-    "default_title": "scriptura",
+    "default_title": "Scriptura",
     "default_popup": "index.html"
   },
   "web_accessible_resources": [
-    "assets/icon.png"
+    "assets/icon.png",
+    "scripts/mixpanel.js"
   ],
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://bibles.org https://ajax.googleapis.com https://cdnjs.cloudflare.com https://www.google-analytics.com/analytics.js https://rolandsaenz.com/; object-src 'self'"
 }
